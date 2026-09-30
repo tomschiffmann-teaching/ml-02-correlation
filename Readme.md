@@ -25,9 +25,10 @@
 ### Vorbereitung für die Python-Aufgaben
 
 ```bash
+cd <wo-auch-immer-eure-requirements.txt-liegt>
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .\.venv\Scripts\Activate.ps1
-pip install numpy pandas matplotlib
+pip install -r requirements.txt
 ```
 
 > 🐍 Musterlösungen als lauffähige Skripte liegen im Ordner `loesungen_python/`: eine Datei pro Python-Aufgabe.
@@ -38,14 +39,14 @@ pip install numpy pandas matplotlib
 
 ### 📖 Erklärung
 
-In der letzten Einheit habt ihr Streudiagramme gezeichnet und mit dem Auge beurteilt: *Steigt die Punktwolke? Fällt sie? Oder ist da gar nichts?*
+In der letzten Einheit habt ihr Streudiagramme gezeichnet und mit dem Auge beurteilt: _Steigt die Punktwolke? Fällt sie? Oder ist da gar nichts?_
 
 Das Auge ist gut, aber ungenau. Zwei Leute schauen auf dasselbe Diagramm, und die eine sagt „deutlicher Zusammenhang", der andere „na ja, eher schwach". Wir brauchen also **eine Zahl**, die jeder gleich berechnet und gleich versteht. Diese Zahl heißt **Korrelationskoeffizient r**.
 
 Heute lernt ihr zwei Dinge:
 
 1. **r berechnen und in Worte fassen.** Das ist Handwerk, das habt ihr nach einer Stunde drauf.
-2. **r richtig deuten.** Das ist der schwierigere Teil. Eine Korrelation verrät, *dass* zwei Dinge zusammen auftreten. Sie verrät **nicht**, *warum*. Genau hier passieren in der Praxis die teuersten Fehler.
+2. **r richtig deuten.** Das ist der schwierigere Teil. Eine Korrelation verrät, _dass_ zwei Dinge zusammen auftreten. Sie verrät **nicht**, _warum_. Genau hier passieren in der Praxis die teuersten Fehler.
 
 > 💬 **Ein Gedanke zum Einstieg:** Ein Online-Shop stellt fest, dass Kunden mit Premium-Kreditkarte im Schnitt doppelt so viel bestellen. Sollte der Shop allen Kunden eine Premium-Kreditkarte schenken? Behalte deine Antwort im Kopf. In Kapitel 7 kommen wir darauf zurück.
 
@@ -57,10 +58,10 @@ Heute lernt ihr zwei Dinge:
 
 r ist immer eine Zahl zwischen **−1** und **+1**. Sie beantwortet zwei Fragen auf einmal:
 
-| Frage | Woran man es sieht | |
-|---|---|---|
-| **In welche Richtung** hängen x und y zusammen? | am **Vorzeichen** | **+** heißt „je mehr x, desto mehr y", **−** heißt „je mehr x, desto weniger y" |
-| **Wie eng** liegen die Punkte an einer Geraden? | am **Betrag** (Zahl ohne Vorzeichen) | nahe 1 heißt eng, nahe 0 heißt lose oder gar nicht |
+| Frage                                           | Woran man es sieht                   |                                                                                 |
+| ----------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------- |
+| **In welche Richtung** hängen x und y zusammen? | am **Vorzeichen**                    | **+** heißt „je mehr x, desto mehr y", **−** heißt „je mehr x, desto weniger y" |
+| **Wie eng** liegen die Punkte an einer Geraden? | am **Betrag** (Zahl ohne Vorzeichen) | nahe 1 heißt eng, nahe 0 heißt lose oder gar nicht                              |
 
 ```
    −1 ──────── −0,7 ──── −0,3 ──── 0 ──── +0,3 ──── +0,7 ──────── +1
@@ -72,14 +73,14 @@ r ist immer eine Zahl zwischen **−1** und **+1**. Sie beantwortet zwei Fragen 
       ╲ fallenden Geraden           · · ·                            ╱   steigenden Geraden
 ```
 
-| Wert von r | So beschreibst du es | So sieht die Punktwolke aus |
-|---|---|---|
-| **+1** | perfekter gleichläufiger Zusammenhang | alle Punkte exakt auf einer steigenden Geraden |
-| **+0,7 bis +1** | starker gleichläufiger Zusammenhang | deutlich steigend, wenig Streuung |
-| **+0,3 bis +0,7** | mittlerer gleichläufiger Zusammenhang | Tendenz nach oben, aber breite Streuung |
-| **−0,3 bis +0,3** | schwacher bzw. kein linearer Zusammenhang | keine erkennbare Richtung |
-| **−0,7 bis −0,3** | mittlerer gegenläufiger Zusammenhang | Tendenz nach unten, breite Streuung |
-| **−1 bis −0,7** | starker gegenläufiger Zusammenhang | deutlich fallend, wenig Streuung |
+| Wert von r        | So beschreibst du es                      | So sieht die Punktwolke aus                    |
+| ----------------- | ----------------------------------------- | ---------------------------------------------- |
+| **+1**            | perfekter gleichläufiger Zusammenhang     | alle Punkte exakt auf einer steigenden Geraden |
+| **+0,7 bis +1**   | starker gleichläufiger Zusammenhang       | deutlich steigend, wenig Streuung              |
+| **+0,3 bis +0,7** | mittlerer gleichläufiger Zusammenhang     | Tendenz nach oben, aber breite Streuung        |
+| **−0,3 bis +0,3** | schwacher bzw. kein linearer Zusammenhang | keine erkennbare Richtung                      |
+| **−0,7 bis −0,3** | mittlerer gegenläufiger Zusammenhang      | Tendenz nach unten, breite Streuung            |
+| **−1 bis −0,7**   | starker gegenläufiger Zusammenhang        | deutlich fallend, wenig Streuung               |
 
 > 📌 **Merksatz:** Das **Vorzeichen** sagt die **Richtung**, der **Betrag** sagt die **Stärke**.
 
@@ -92,11 +93,11 @@ Die Grenzen 0,3 und 0,7 sind eine **Faustregel**. In der Physik wäre r = 0,9 ei
 
 ### 🧮 Beispiel
 
-| Situation | r | In Worten |
-|---|---:|---|
-| Entfernung zum Kunden ↔ Lieferzeit | +0,98 | starker gleichläufiger Zusammenhang: Je weiter weg, desto länger dauert die Lieferung. |
-| Außentemperatur ↔ Heizkosten | −0,99 | starker gegenläufiger Zusammenhang: Je wärmer, desto niedriger die Heizkosten. |
-| Schuhgröße ↔ Gehalt (bei Erwachsenen) | +0,05 | kein linearer Zusammenhang. |
+| Situation                             |     r | In Worten                                                                              |
+| ------------------------------------- | ----: | -------------------------------------------------------------------------------------- |
+| Entfernung zum Kunden ↔ Lieferzeit    | +0,98 | starker gleichläufiger Zusammenhang: Je weiter weg, desto länger dauert die Lieferung. |
+| Außentemperatur ↔ Heizkosten          | −0,99 | starker gegenläufiger Zusammenhang: Je wärmer, desto niedriger die Heizkosten.         |
+| Schuhgröße ↔ Gehalt (bei Erwachsenen) | +0,05 | kein linearer Zusammenhang.                                                            |
 
 ### ✏️ Aufgabe 2 · r in Worte fassen
 
@@ -149,7 +150,7 @@ $$
 
 Sie besteht aber nur aus **drei Summen**, und die Idee dahinter ist einfach.
 
-**Die Idee:** Wir legen ein Kreuz durch den Mittelpunkt der Punktwolke (x̄ | ȳ). Dann fragen wir für jeden Punkt: *Liegt er bei x und y auf derselben Seite des Mittelwerts?*
+**Die Idee:** Wir legen ein Kreuz durch den Mittelpunkt der Punktwolke (x̄ | ȳ). Dann fragen wir für jeden Punkt: _Liegt er bei x und y auf derselben Seite des Mittelwerts?_
 
 ```
                  senkrechte Linie: x = x̄
@@ -189,14 +190,14 @@ x̄ = (2 + 4 + 6 + 8 + 10) / 5 = 30 / 5 = **6**
 
 **Schritt 2 bis 3 · Tabelle füllen**
 
-| Bestellung | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 2 | 15 | −4 | −15 | 60 | 16 | 225 |
-| 2 | 4 | 20 | −2 | −10 | 20 | 4 | 100 |
-| 3 | 6 | 30 | 0 | 0 | 0 | 0 | 0 |
-| 4 | 8 | 35 | +2 | +5 | 10 | 4 | 25 |
-| 5 | 10 | 50 | +4 | +20 | 80 | 16 | 400 |
-| **Σ** | **30** | **150** | **0 ✓** | **0 ✓** | **170** | **40** | **750** |
+| Bestellung |      x |       y |   x − x̄ |   y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ---------- | -----: | ------: | ------: | ------: | -------------: | -------: | -------: |
+| 1          |      2 |      15 |      −4 |     −15 |             60 |       16 |      225 |
+| 2          |      4 |      20 |      −2 |     −10 |             20 |        4 |      100 |
+| 3          |      6 |      30 |       0 |       0 |              0 |        0 |        0 |
+| 4          |      8 |      35 |      +2 |      +5 |             10 |        4 |       25 |
+| 5          |     10 |      50 |      +4 |     +20 |             80 |       16 |      400 |
+| **Σ**      | **30** | **150** | **0 ✓** | **0 ✓** |        **170** |   **40** |  **750** |
 
 **Schritt 4 · Einsetzen**
 
@@ -206,30 +207,30 @@ $$
 
 **Schritt 5 · In Worte fassen**
 
-> *„r = 0,98: ein starker gleichläufiger Zusammenhang. Je weiter der Kunde entfernt wohnt, desto länger dauert die Lieferung. Die Punkte liegen fast genau auf einer Geraden."*
+> _„r = 0,98: ein starker gleichläufiger Zusammenhang. Je weiter der Kunde entfernt wohnt, desto länger dauert die Lieferung. Die Punkte liegen fast genau auf einer Geraden."_
 
 Das ist auch **fachlich plausibel**: Weitere Strecken brauchen mehr Zeit. Wenn ein Ergebnis dem gesunden Menschenverstand und dem Fachwissen widerspricht, sollte man zuerst die Rechnung und die Daten prüfen.
 
 ### 🛡️ Drei Kontrollen gegen Rechenfehler
 
-| # | Kontrolle | Wenn sie fehlschlägt … |
-|---|---|---|
-| 1 | Die Spalten **x − x̄** und **y − ȳ** ergeben in der Summe jeweils **0**. | … ist ein Mittelwert falsch. |
-| 2 | r liegt **zwischen −1 und +1**. | … fehlt meist ein Quadrat oder die Wurzel. |
-| 3 | Das **Vorzeichen** passt zur Punktwolke. | … wurde ein Vorzeichen in einer Abweichungsspalte vertauscht. |
+| #   | Kontrolle                                                               | Wenn sie fehlschlägt …                                        |
+| --- | ----------------------------------------------------------------------- | ------------------------------------------------------------- |
+| 1   | Die Spalten **x − x̄** und **y − ȳ** ergeben in der Summe jeweils **0**. | … ist ein Mittelwert falsch.                                  |
+| 2   | r liegt **zwischen −1 und +1**.                                         | … fehlt meist ein Quadrat oder die Wurzel.                    |
+| 3   | Das **Vorzeichen** passt zur Punktwolke.                                | … wurde ein Vorzeichen in einer Abweichungsspalte vertauscht. |
 
 ### ✏️ Aufgabe 3a · Heizkosten
 
 Ein Haushalt notiert an fünf Wochen die **durchschnittliche Außentemperatur x (°C)** und die **Heizkosten y (€ pro Woche)**.
 
-| Woche | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 0 | 40 | | | | | |
-| 2 | 5 | 34 | | | | | |
-| 3 | 10 | 30 | | | | | |
-| 4 | 15 | 20 | | | | | |
-| 5 | 20 | 16 | | | | | |
-| **Σ** | | | | | | | |
+| Woche |   x |   y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ----- | --: | --: | ----: | ----: | -------------: | -------: | -------: |
+| 1     |   0 |  40 |       |       |                |          |          |
+| 2     |   5 |  34 |       |       |                |          |          |
+| 3     |  10 |  30 |       |       |                |          |          |
+| 4     |  15 |  20 |       |       |                |          |          |
+| 5     |  20 |  16 |       |       |                |          |          |
+| **Σ** |     |     |       |       |                |          |          |
 
 **a)** Berechne r. Denk an die drei Kontrollen.
 **b)** Formuliere das Ergebnis in einem vollständigen Satz.
@@ -238,14 +239,14 @@ Ein Haushalt notiert an fünf Wochen die **durchschnittliche Außentemperatur x 
 
 Eine Person notiert an fünf Tagen, wie viele **Stunden sie geschlafen** hat (x) und wie viele **Tippfehler pro Seite** sie am nächsten Tag macht (y).
 
-| Tag | 1 | 2 | 3 | 4 | 5 |
-|---|---:|---:|---:|---:|---:|
-| x (Stunden Schlaf) | 5 | 6 | 7 | 8 | 9 |
-| y (Tippfehler) | 6 | 7 | 3 | 4 | 5 |
+| Tag                |   1 |   2 |   3 |   4 |   5 |
+| ------------------ | --: | --: | --: | --: | --: |
+| x (Stunden Schlaf) |   5 |   6 |   7 |   8 |   9 |
+| y (Tippfehler)     |   6 |   7 |   3 |   4 |   5 |
 
 **a)** Berechne r mit der vollständigen Tabelle.
 **b)** Formuliere das Ergebnis in einem Satz.
-**c)** Warum ist dieses Ergebnis mit Vorsicht zu genießen? *(Tipp: Wie viele Tage wurden notiert?)*
+**c)** Warum ist dieses Ergebnis mit Vorsicht zu genießen? _(Tipp: Wie viele Tage wurden notiert?)_
 
 ### ✏️ Aufgabe 3c · Wartung und Störungen
 
@@ -253,14 +254,14 @@ Eine Person notiert an fünf Tagen, wie viele **Stunden sie geschlafen** hat (x)
 
 Ein Betrieb vergleicht fünf Anlagen. x ist die **Anzahl der Wartungen pro Jahr**, y die **Anzahl der Störungen pro Jahr**.
 
-| Anlage | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| B1 | 1 | 9 | | | | | |
-| B2 | 2 | 8 | | | | | |
-| B3 | 3 | 6 | | | | | |
-| B4 | 4 | 5 | | | | | |
-| B5 | 5 | 2 | | | | | |
-| **Σ** | | | | | | | |
+| Anlage |   x |   y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ------ | --: | --: | ----: | ----: | -------------: | -------: | -------: |
+| B1     |   1 |   9 |       |       |                |          |          |
+| B2     |   2 |   8 |       |       |                |          |          |
+| B3     |   3 |   6 |       |       |                |          |          |
+| B4     |   4 |   5 |       |       |                |          |          |
+| B5     |   5 |   2 |       |       |                |          |          |
+| **Σ**  |     |     |       |       |                |          |          |
 
 **a)** Berechne r. Lege dazu die vollständige Tabelle an.
 **b)** Formuliere das Ergebnis in einem Satz.
@@ -299,7 +300,7 @@ print(f"mit NumPy:        {np.corrcoef(entfernung, lieferzeit)[0, 1]:.3f}")
 
 ### 📖 Erklärung
 
-Ein häufiger Denkfehler: *„r ist hoch, also hat x eine große Wirkung auf y."* Das stimmt nicht.
+Ein häufiger Denkfehler: _„r ist hoch, also hat x eine große Wirkung auf y."_ Das stimmt nicht.
 
 - **r** sagt, wie **eng** die Punkte an der Geraden liegen, also wie **verlässlich** der Zusammenhang ist.
 - Die **Steigung** sagt, wie **stark** y reagiert, wenn x um 1 steigt, also wie **groß die Wirkung** ist.
@@ -325,30 +326,30 @@ Beides hat nichts miteinander zu tun. Eine Gerade kann flach und trotzdem eng se
 
 Zwei Maschinen laufen auf fünf Drehzahlstufen x. Gemessen wird die Temperaturerhöhung y (°C).
 
-| Stufe x | 1 | 2 | 3 | 4 | 5 |
-|---|---:|---:|---:|---:|---:|
-| Maschine A: y | 10 | 12 | 11 | 13 | 14 |
-| Maschine B: y | 10 | 30 | 20 | 40 | 50 |
+| Stufe x       |   1 |   2 |   3 |   4 |   5 |
+| ------------- | --: | --: | --: | --: | --: |
+| Maschine A: y |  10 |  12 |  11 |  13 |  14 |
+| Maschine B: y |  10 |  30 |  20 |  40 |  50 |
 
 **Maschine A:** x̄ = 3, ȳ = 12
 
-| x − x̄ | −2 | −1 | 0 | +1 | +2 | **Σ** |
-|---|---:|---:|---:|---:|---:|---:|
-| y − ȳ | −2 | 0 | −1 | +1 | +2 | 0 ✓ |
-| Produkt | 4 | 0 | 0 | 1 | 4 | **9** |
-| (x − x̄)² | 4 | 1 | 0 | 1 | 4 | **10** |
-| (y − ȳ)² | 4 | 0 | 1 | 1 | 4 | **10** |
+| x − x̄    |  −2 |  −1 |   0 |  +1 |  +2 |  **Σ** |
+| -------- | --: | --: | --: | --: | --: | -----: |
+| y − ȳ    |  −2 |   0 |  −1 |  +1 |  +2 |    0 ✓ |
+| Produkt  |   4 |   0 |   0 |   1 |   4 |  **9** |
+| (x − x̄)² |   4 |   1 |   0 |   1 |   4 | **10** |
+| (y − ȳ)² |   4 |   0 |   1 |   1 |   4 | **10** |
 
 r = 9 / √(10 · 10) = 9 / 10 = **0,90**
 
 **Maschine B:** x̄ = 3, ȳ = 30
 
-| x − x̄ | −2 | −1 | 0 | +1 | +2 | **Σ** |
-|---|---:|---:|---:|---:|---:|---:|
-| y − ȳ | −20 | 0 | −10 | +10 | +20 | 0 ✓ |
-| Produkt | 40 | 0 | 0 | 10 | 40 | **90** |
-| (x − x̄)² | 4 | 1 | 0 | 1 | 4 | **10** |
-| (y − ȳ)² | 400 | 0 | 100 | 100 | 400 | **1000** |
+| x − x̄    |  −2 |  −1 |   0 |  +1 |  +2 |    **Σ** |
+| -------- | --: | --: | --: | --: | --: | -------: |
+| y − ȳ    | −20 |   0 | −10 | +10 | +20 |      0 ✓ |
+| Produkt  |  40 |   0 |   0 |  10 |  40 |   **90** |
+| (x − x̄)² |   4 |   1 |   0 |   1 |   4 |   **10** |
+| (y − ȳ)² | 400 |   0 | 100 | 100 | 400 | **1000** |
 
 r = 90 / √(10 · 1000) = 90 / 100 = **0,90**
 
@@ -358,10 +359,10 @@ r = 90 / √(10 · 1000) = 90 / 100 = **0,90**
 
 Eine Firma untersucht zwei mögliche Stellschrauben für die Kundenzufriedenheit (Punkte von 0 bis 100):
 
-| Maßnahme | r mit Zufriedenheit | Steigung |
-|---|---:|---|
-| A: Antwortzeit im Support verkürzen | −0,91 | −0,2 Punkte pro Stunde schneller |
-| B: Kostenloser Versand ab geringerem Bestellwert | +0,55 | +8 Punkte pro 10 € niedrigerer Grenze |
+| Maßnahme                                         | r mit Zufriedenheit | Steigung                              |
+| ------------------------------------------------ | ------------------: | ------------------------------------- |
+| A: Antwortzeit im Support verkürzen              |               −0,91 | −0,2 Punkte pro Stunde schneller      |
+| B: Kostenloser Versand ab geringerem Bestellwert |               +0,55 | +8 Punkte pro 10 € niedrigerer Grenze |
 
 **a)** Beschreibe beide Zusammenhänge in Worten.
 **b)** Welche Maßnahme hat den **verlässlicheren** Zusammenhang, welche die **größere Wirkung**?
@@ -383,7 +384,7 @@ for name, y in [("A", temp_a), ("B", temp_b)]:
 ```
 
 **a)** Ergänze r und führe das Skript aus.
-**b)** Erzeuge eine Maschine C, bei der r **gleich** bleibt, die Steigung aber **negativ** ist. *(Tipp: Wie muss sich y verändern?)* Oder geht das gar nicht? Begründe.
+**b)** Erzeuge eine Maschine C, bei der r **gleich** bleibt, die Steigung aber **negativ** ist. _(Tipp: Wie muss sich y verändern?)_ Oder geht das gar nicht? Begründe.
 **c)** Zeichne alle Maschinen mit `plt.scatter` in ein gemeinsames Diagramm.
 
 ---
@@ -402,9 +403,9 @@ Dazu kommt eine zweite Falle: **Ausreißer**. Ein einziger extremer Punkt kann r
 
 ### 🧮 Rechenbeispiel · Raumtemperatur und Konzentration
 
-| x (Raumtemperatur °C) | 16 | 18 | 20 | 22 | 24 |
-|---|---:|---:|---:|---:|---:|
-| y (Konzentrationstest, Punkte) | 60 | 80 | 90 | 80 | 60 |
+| x (Raumtemperatur °C)          |  16 |  18 |  20 |  22 |  24 |
+| ------------------------------ | --: | --: | --: | --: | --: |
+| y (Konzentrationstest, Punkte) |  60 |  80 |  90 |  80 |  60 |
 
 ```
   90 │           •
@@ -417,9 +418,9 @@ Dazu kommt eine zweite Falle: **Ausreißer**. Ein einziger extremer Punkt kann r
 
 x̄ = 20, ȳ = 74
 
-| x − x̄ | −4 | −2 | 0 | +2 | +4 | **Σ** |
-|---|---:|---:|---:|---:|---:|---:|
-| y − ȳ | −14 | +6 | +16 | +6 | −14 | 0 ✓ |
+| x − x̄   |      −4 |      −2 |     0 |      +2 |      +4 | **Σ** |
+| ------- | ------: | ------: | ----: | ------: | ------: | ----: |
+| y − ȳ   |     −14 |      +6 |   +16 |      +6 |     −14 |   0 ✓ |
 | Produkt | **+56** | **−12** | **0** | **+12** | **−56** | **0** |
 
 Der Zähler ist **0**, also ist **r = 0**. Die linke Hälfte (steigend) und die rechte Hälfte (fallend) heben sich genau auf. Dabei ist der Zusammenhang offensichtlich.
@@ -436,14 +437,14 @@ Ein Punkt macht aus „kein Zusammenhang" einen „starken Zusammenhang". Vielle
 
 Ein Café notiert die **Anzahl Sonnenstunden x** und die **verkauften heißen Getränke y**:
 
-| x | 0 | 2 | 4 | 6 | 8 |
-|---|---:|---:|---:|---:|---:|
-| y | 50 | 80 | 90 | 80 | 50 |
+| x   |   0 |   2 |   4 |   6 |   8 |
+| --- | --: | --: | --: | --: | --: |
+| y   |  50 |  80 |  90 |  80 |  50 |
 
 **a)** Zeichne das Streudiagramm (Skizze reicht). Was vermutest du über r?
 **b)** Berechne r.
 **c)** Formuliere eine mögliche Erklärung für dieses Muster.
-**d)** Was würdest du antworten, wenn jemand sagt: *„r ist null, die Sonne hat also keinen Einfluss auf den Verkauf"*?
+**d)** Was würdest du antworten, wenn jemand sagt: _„r ist null, die Sonne hat also keinen Einfluss auf den Verkauf"_?
 
 ### 🐍 Python-Aufgabe 5 · Bogen und Ausreißer
 
@@ -485,12 +486,12 @@ Jetzt kommt der wichtigste Teil. Angenommen, du findest eine starke Korrelation 
                                                   x       y
 ```
 
-| Erklärung | Was dahintersteckt | Beispiel |
-|---|---|---|
-| **① Zufall** | Die Daten zeigen zufällig ein Muster, das es in Wirklichkeit nicht gibt. Je mehr Merkmale man durchsucht und je weniger Datenpunkte man hat, desto wahrscheinlicher ist das. | In den USA korrelierte über Jahre die Zahl der Filme mit Nicolas Cage mit der Zahl der Menschen, die in Pools ertrunken sind. |
-| **② Umgekehrte Richtung** | Nicht x verursacht y, sondern y verursacht x. | In Filialen mit mehr Überwachungskameras wird mehr gestohlen. Die Kameras locken keine Diebe an, sondern wo viel gestohlen wird, werden Kameras aufgehängt. |
-| **③ Störvariable** | Eine dritte Größe z beeinflusst x **und** y gleichzeitig. Zwischen x und y selbst gibt es keine Verbindung. | Bei Grundschulkindern korreliert die Schuhgröße mit der Lesefähigkeit. Die Störvariable ist das **Alter**: Ältere Kinder haben größere Füße **und** lesen besser. |
-| **④ Echte Kausalität** | x verursacht tatsächlich y. | Mehr gefahrene Kilometer verursachen mehr Reifenabrieb. Das wissen wir aus der Physik, nicht aus r. |
+| Erklärung                 | Was dahintersteckt                                                                                                                                                           | Beispiel                                                                                                                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **① Zufall**              | Die Daten zeigen zufällig ein Muster, das es in Wirklichkeit nicht gibt. Je mehr Merkmale man durchsucht und je weniger Datenpunkte man hat, desto wahrscheinlicher ist das. | In den USA korrelierte über Jahre die Zahl der Filme mit Nicolas Cage mit der Zahl der Menschen, die in Pools ertrunken sind.                                     |
+| **② Umgekehrte Richtung** | Nicht x verursacht y, sondern y verursacht x.                                                                                                                                | In Filialen mit mehr Überwachungskameras wird mehr gestohlen. Die Kameras locken keine Diebe an, sondern wo viel gestohlen wird, werden Kameras aufgehängt.       |
+| **③ Störvariable**        | Eine dritte Größe z beeinflusst x **und** y gleichzeitig. Zwischen x und y selbst gibt es keine Verbindung.                                                                  | Bei Grundschulkindern korreliert die Schuhgröße mit der Lesefähigkeit. Die Störvariable ist das **Alter**: Ältere Kinder haben größere Füße **und** lesen besser. |
+| **④ Echte Kausalität**    | x verursacht tatsächlich y.                                                                                                                                                  | Mehr gefahrene Kilometer verursachen mehr Reifenabrieb. Das wissen wir aus der Physik, nicht aus r.                                                               |
 
 > ⚠️ **Die Störvariable ist der häufigste und gefährlichste Fall.** Die Korrelation ist echt, die Rechnung stimmt, nur der **Schluss** ist falsch. Und anders als beim Beispiel mit den Schuhen ist die dritte Größe im Betrieb oft unsichtbar.
 
@@ -516,14 +517,14 @@ Das **Kaufjahr** ist die Störvariable. Neue Laptops sind schwarz **und** gehen 
 
 Ordne jeder Beobachtung die wahrscheinlichste Erklärung zu (Zufall, umgekehrte Richtung, Störvariable, echte Kausalität). Begründe in einem Satz. Nenne, wenn möglich, eine zweite denkbare Erklärung.
 
-| # | Beobachtung |
-|---|---|
-| 1 | In Städten mit mehr Feuerwehrleuten gibt es mehr Brände. |
-| 2 | Mitarbeitende, die mehr Weiterbildungen besuchen, verdienen mehr. |
-| 3 | Menschen, die viel Schmerzmittel nehmen, haben häufiger Kopfschmerzen. |
-| 4 | Ein Analyst testet 500 Kennzahlen gegen den Tagesumsatz. Die Anzahl der Buchstaben im Namen des Wochentags korreliert mit r = 0,6. |
-| 5 | Server mit mehr Betriebsstunden haben häufiger Festplattendefekte. |
-| 6 | Hobbysportler mit mehr Trainingsstunden haben mehr Verletzungen. |
+| #   | Beobachtung                                                                                                                        |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | In Städten mit mehr Feuerwehrleuten gibt es mehr Brände.                                                                           |
+| 2   | Mitarbeitende, die mehr Weiterbildungen besuchen, verdienen mehr.                                                                  |
+| 3   | Menschen, die viel Schmerzmittel nehmen, haben häufiger Kopfschmerzen.                                                             |
+| 4   | Ein Analyst testet 500 Kennzahlen gegen den Tagesumsatz. Die Anzahl der Buchstaben im Namen des Wochentags korreliert mit r = 0,6. |
+| 5   | Server mit mehr Betriebsstunden haben häufiger Festplattendefekte.                                                                 |
+| 6   | Hobbysportler mit mehr Trainingsstunden haben mehr Verletzungen.                                                                   |
 
 > 💡 Bei manchen Beobachtungen sind zwei Antworten vertretbar. Wichtig ist die **Begründung**, nicht das Etikett.
 
@@ -533,13 +534,13 @@ Ordne jeder Beobachtung die wahrscheinlichste Erklärung zu (Zufall, umgekehrte 
 
 Zufall, umgekehrte Richtung, Störvariable oder echte Kausalität? Begründe und zieh, wo es passt, einen Vergleich zu einem Beispiel aus diesem Skript.
 
-| # | Beobachtung |
-|---|---|
-| 1 | Geräte, die im Sommer in Betrieb genommen wurden, fallen häufiger aus. |
-| 2 | Anlagen mit höherem Stromverbrauch haben mehr Betriebsstunden. |
-| 3 | Kunden, die den Support häufiger anrufen, kündigen seltener. |
-| 4 | In Wochen mit vielen Krankmeldungen in der Werkstatt gibt es mehr ungeplante Stillstände. |
-| 5 | Von 200 untersuchten Merkmalen korreliert die Nummer des Lagerregals mit der Ausfallrate. |
+| #   | Beobachtung                                                                               |
+| --- | ----------------------------------------------------------------------------------------- |
+| 1   | Geräte, die im Sommer in Betrieb genommen wurden, fallen häufiger aus.                    |
+| 2   | Anlagen mit höherem Stromverbrauch haben mehr Betriebsstunden.                            |
+| 3   | Kunden, die den Support häufiger anrufen, kündigen seltener.                              |
+| 4   | In Wochen mit vielen Krankmeldungen in der Werkstatt gibt es mehr ungeplante Stillstände. |
+| 5   | Von 200 untersuchten Merkmalen korreliert die Nummer des Lagerregals mit der Ausfallrate. |
 
 **Zusatz:** Schau dir jetzt noch einmal deine Antwort auf **Aufgabe 3c c)** an. Welche der vier Erklärungen kommen dort infrage?
 
@@ -573,12 +574,12 @@ merkmale = rng.normal(size=(n_tage, n_merkmale))       # 200 zufällige Kennzahl
 
 Zurück zur Premium-Kreditkarte aus Kapitel 1. Kunden mit Premium-Karte bestellen mehr. Ist das nützlich? **Das hängt davon ab, was du vorhast.**
 
-| | **Vorhersagen** | **Entscheiden / eingreifen** |
-|---|---|---|
-| Die Frage | „Was wird passieren?" | „Was sollen wir tun?" |
-| Reicht Korrelation? | **Ja.** Ein verlässliches Kennzeichen genügt. | **Nein.** Es braucht Kausalität. |
+|                       | **Vorhersagen**                                                                      | **Entscheiden / eingreifen**                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Die Frage             | „Was wird passieren?"                                                                | „Was sollen wir tun?"                                                                                                      |
+| Reicht Korrelation?   | **Ja.** Ein verlässliches Kennzeichen genügt.                                        | **Nein.** Es braucht Kausalität.                                                                                           |
 | Kreditkarten-Beispiel | Ein Modell darf die Premium-Karte nutzen, um vorherzusagen, wer viel bestellen wird. | Allen eine Premium-Karte zu schenken, bringt nichts. Die Karte ist nur ein Hinweis auf hohes **Einkommen** (Störvariable). |
-| Risiko | **Drift:** Wenn sich der Zusammenhang ändert, wird das Modell unbemerkt schlechter. | **Geld für eine Maßnahme, die nichts bewirkt.** |
+| Risiko                | **Drift:** Wenn sich der Zusammenhang ändert, wird das Modell unbemerkt schlechter.  | **Geld für eine Maßnahme, die nichts bewirkt.**                                                                            |
 
 **Was ist Drift?** Angenommen, eine Bank verschenkt plötzlich Premium-Karten an alle Studierenden. Dann steht die Karte nicht mehr für hohes Einkommen, und das Modell, das auf die Karte gesetzt hat, liegt plötzlich daneben. Es merkt das aber nicht selbst. Deshalb ist es besser, wenn ein Modell die **echte Ursache** als Merkmal nutzt, sofern man sie kennt.
 
@@ -615,12 +616,12 @@ Wenn die Zahlen allein nichts über Ursache und Wirkung sagen, was dann? Es gibt
    schnell, billig                                              aufwendig, sicher
 ```
 
-| Weg | Leitfrage | Am Laptop-Beispiel |
-|---|---|---|
-| **① Fachwissen** | Gibt es einen plausiblen Mechanismus? | IT fragen: Kann die Farbe des Gehäuses Defekte beeinflussen? Vermutlich nicht. |
-| **② Zeitliche Reihenfolge** | Kommt die Ursache vor der Wirkung? | Die Ursache muss zeitlich vorher da sein. Das schließt die umgekehrte Richtung aus, beweist aber noch keine Kausalität. |
+| Weg                              | Leitfrage                                                                 | Am Laptop-Beispiel                                                                                                          |
+| -------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **① Fachwissen**                 | Gibt es einen plausiblen Mechanismus?                                     | IT fragen: Kann die Farbe des Gehäuses Defekte beeinflussen? Vermutlich nicht.                                              |
+| **② Zeitliche Reihenfolge**      | Kommt die Ursache vor der Wirkung?                                        | Die Ursache muss zeitlich vorher da sein. Das schließt die umgekehrte Richtung aus, beweist aber noch keine Kausalität.     |
 | **③ Störvariable kontrollieren** | Bleibt der Zusammenhang, wenn man nur **vergleichbare** Fälle vergleicht? | Nur Laptops **gleichen Alters** vergleichen. Ist die Defektrate dann bei beiden Farben gleich, war das Alter die Erklärung. |
-| **④ Experiment** | Was passiert, wenn man gezielt eingreift? | Zwei **zufällig** gebildete Gruppen, nur eine bekommt die Veränderung. |
+| **④ Experiment**                 | Was passiert, wenn man gezielt eingreift?                                 | Zwei **zufällig** gebildete Gruppen, nur eine bekommt die Veränderung.                                                      |
 
 **Warum „zufällig" beim Experiment so wichtig ist:** Wenn man die Gruppen per Zufall bildet, verteilen sich **alle** möglichen Störvariablen gleichmäßig auf beide Gruppen, auch die, an die niemand gedacht hat. Ein Unterschied am Ende kann dann nur noch von der Veränderung kommen.
 
@@ -662,17 +663,17 @@ df["temp_klasse"] = pd.cut(df["temperatur"], bins=range(0, 36, 1))
 
 ## 9 · Das Wichtigste auf einen Blick
 
-| | |
-|---|---|
-| **r misst** | Richtung (Vorzeichen) und Stärke (Betrag) eines **linearen** Zusammenhangs, immer zwischen −1 und +1. |
-| **Drei Kontrollen** | Abweichungen summieren sich zu 0 · r liegt zwischen −1 und +1 · Vorzeichen passt zur Punktwolke. |
-| **r misst nicht** | die Steigung. Ein enger Zusammenhang kann eine winzige Wirkung haben. |
-| **r = 0 heißt** | nur: kein **linearer** Zusammenhang. Bögen und Ausreißer sieht man nur im Diagramm. |
-| **Vier Erklärungen** | Zufall · umgekehrte Richtung · Störvariable · echte Kausalität. r sagt nie, welche. |
-| **Störvariable** | der häufigste und gefährlichste Fall: Die Rechnung stimmt, nur der Schluss ist falsch. |
-| **Vorhersage** | darf jedes verlässliche Merkmal nutzen, auch ohne Kausalität (Risiko: Drift). |
-| **Entscheidung** | braucht Kausalität, sonst zahlt man für eine Maßnahme ohne Wirkung. |
-| **Kausalität prüfen** | Fachwissen · zeitliche Reihenfolge · Störvariable kontrollieren · Experiment. |
+|                       |                                                                                                       |
+| --------------------- | ----------------------------------------------------------------------------------------------------- |
+| **r misst**           | Richtung (Vorzeichen) und Stärke (Betrag) eines **linearen** Zusammenhangs, immer zwischen −1 und +1. |
+| **Drei Kontrollen**   | Abweichungen summieren sich zu 0 · r liegt zwischen −1 und +1 · Vorzeichen passt zur Punktwolke.      |
+| **r misst nicht**     | die Steigung. Ein enger Zusammenhang kann eine winzige Wirkung haben.                                 |
+| **r = 0 heißt**       | nur: kein **linearer** Zusammenhang. Bögen und Ausreißer sieht man nur im Diagramm.                   |
+| **Vier Erklärungen**  | Zufall · umgekehrte Richtung · Störvariable · echte Kausalität. r sagt nie, welche.                   |
+| **Störvariable**      | der häufigste und gefährlichste Fall: Die Rechnung stimmt, nur der Schluss ist falsch.                |
+| **Vorhersage**        | darf jedes verlässliche Merkmal nutzen, auch ohne Kausalität (Risiko: Drift).                         |
+| **Entscheidung**      | braucht Kausalität, sonst zahlt man für eine Maßnahme ohne Wirkung.                                   |
+| **Kausalität prüfen** | Fachwissen · zeitliche Reihenfolge · Störvariable kontrollieren · Experiment.                         |
 
 > 🔁 **Erst schauen, dann rechnen. Korrelation ist nicht Kausalität.**
 
@@ -684,6 +685,7 @@ df["temp_klasse"] = pd.cut(df["temperatur"], bins=range(0, 36, 1))
 - Für das Fachgespräch: Überleg dir ein **eigenes Beispiel für eine Störvariable aus deinem Betrieb**.
 
 ---
+
 ---
 
 # Lösungen
@@ -708,39 +710,39 @@ gemessen = np.corrcoef(x, y)[0, 1]
 
 x̄ = 50 / 5 = **10**, ȳ = 140 / 5 = **28**
 
-| Woche | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 0 | 40 | −10 | +12 | −120 | 100 | 144 |
-| 2 | 5 | 34 | −5 | +6 | −30 | 25 | 36 |
-| 3 | 10 | 30 | 0 | +2 | 0 | 0 | 4 |
-| 4 | 15 | 20 | +5 | −8 | −40 | 25 | 64 |
-| 5 | 20 | 16 | +10 | −12 | −120 | 100 | 144 |
-| **Σ** | **50** | **140** | **0 ✓** | **0 ✓** | **−310** | **250** | **392** |
+| Woche |      x |       y |   x − x̄ |   y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ----- | -----: | ------: | ------: | ------: | -------------: | -------: | -------: |
+| 1     |      0 |      40 |     −10 |     +12 |           −120 |      100 |      144 |
+| 2     |      5 |      34 |      −5 |      +6 |            −30 |       25 |       36 |
+| 3     |     10 |      30 |       0 |      +2 |              0 |        0 |        4 |
+| 4     |     15 |      20 |      +5 |      −8 |            −40 |       25 |       64 |
+| 5     |     20 |      16 |     +10 |     −12 |           −120 |      100 |      144 |
+| **Σ** | **50** | **140** | **0 ✓** | **0 ✓** |       **−310** |  **250** |  **392** |
 
 $$
 r = \frac{-310}{\sqrt{250 \cdot 392}} = \frac{-310}{\sqrt{98\,000}} = \frac{-310}{313{,}0} \approx \mathbf{-0{,}99}
 $$
 
-**b)** *„r = −0,99: ein sehr starker gegenläufiger Zusammenhang. Je wärmer es draußen ist, desto niedriger sind die Heizkosten. Die Punkte liegen fast perfekt auf einer fallenden Geraden."*
+**b)** _„r = −0,99: ein sehr starker gegenläufiger Zusammenhang. Je wärmer es draußen ist, desto niedriger sind die Heizkosten. Die Punkte liegen fast perfekt auf einer fallenden Geraden."_
 
 ## Lösung Aufgabe 3b · Schlaf und Tippfehler
 
 x̄ = 35 / 5 = **7**, ȳ = 25 / 5 = **5**
 
-| Tag | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 5 | 6 | −2 | +1 | −2 | 4 | 1 |
-| 2 | 6 | 7 | −1 | +2 | −2 | 1 | 4 |
-| 3 | 7 | 3 | 0 | −2 | 0 | 0 | 4 |
-| 4 | 8 | 4 | +1 | −1 | −1 | 1 | 1 |
-| 5 | 9 | 5 | +2 | 0 | 0 | 4 | 0 |
-| **Σ** | **35** | **25** | **0 ✓** | **0 ✓** | **−5** | **10** | **10** |
+| Tag   |      x |      y |   x − x̄ |   y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ----- | -----: | -----: | ------: | ------: | -------------: | -------: | -------: |
+| 1     |      5 |      6 |      −2 |      +1 |             −2 |        4 |        1 |
+| 2     |      6 |      7 |      −1 |      +2 |             −2 |        1 |        4 |
+| 3     |      7 |      3 |       0 |      −2 |              0 |        0 |        4 |
+| 4     |      8 |      4 |      +1 |      −1 |             −1 |        1 |        1 |
+| 5     |      9 |      5 |      +2 |       0 |              0 |        4 |        0 |
+| **Σ** | **35** | **25** | **0 ✓** | **0 ✓** |         **−5** |   **10** |   **10** |
 
 $$
 r = \frac{-5}{\sqrt{10 \cdot 10}} = \frac{-5}{10} = \mathbf{-0{,}5}
 $$
 
-**b)** *„r = −0,5: ein mittlerer gegenläufiger Zusammenhang. Nach mehr Schlaf macht die Person tendenziell weniger Tippfehler, die Werte streuen aber deutlich."*
+**b)** _„r = −0,5: ein mittlerer gegenläufiger Zusammenhang. Nach mehr Schlaf macht die Person tendenziell weniger Tippfehler, die Werte streuen aber deutlich."_
 
 **c)** Fünf Tage sind sehr wenig. Bei so wenigen Werten kann ein mittleres r auch rein zufällig entstehen. Ein einzelner ungewöhnlicher Tag verändert das Ergebnis stark. Außerdem sind Störvariablen denkbar, etwa Stress oder Kaffee.
 
@@ -748,22 +750,22 @@ $$
 
 x̄ = 15 / 5 = **3**, ȳ = 30 / 5 = **6**
 
-| Anlage | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| B1 | 1 | 9 | −2 | +3 | −6 | 4 | 9 |
-| B2 | 2 | 8 | −1 | +2 | −2 | 1 | 4 |
-| B3 | 3 | 6 | 0 | 0 | 0 | 0 | 0 |
-| B4 | 4 | 5 | +1 | −1 | −1 | 1 | 1 |
-| B5 | 5 | 2 | +2 | −4 | −8 | 4 | 16 |
-| **Σ** | **15** | **30** | **0 ✓** | **0 ✓** | **−17** | **10** | **30** |
+| Anlage |      x |      y |   x − x̄ |   y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ------ | -----: | -----: | ------: | ------: | -------------: | -------: | -------: |
+| B1     |      1 |      9 |      −2 |      +3 |             −6 |        4 |        9 |
+| B2     |      2 |      8 |      −1 |      +2 |             −2 |        1 |        4 |
+| B3     |      3 |      6 |       0 |       0 |              0 |        0 |        0 |
+| B4     |      4 |      5 |      +1 |      −1 |             −1 |        1 |        1 |
+| B5     |      5 |      2 |      +2 |      −4 |             −8 |        4 |       16 |
+| **Σ**  | **15** | **30** | **0 ✓** | **0 ✓** |        **−17** |   **10** |   **30** |
 
 $$
 r = \frac{-17}{\sqrt{10 \cdot 30}} = \frac{-17}{\sqrt{300}} = \frac{-17}{17{,}32} \approx \mathbf{-0{,}98}
 $$
 
-**b)** *„r = −0,98: ein sehr starker gegenläufiger Zusammenhang. Anlagen, die häufiger gewartet werden, haben weniger Störungen. Die Punkte liegen fast genau auf einer fallenden Geraden."*
+**b)** _„r = −0,98: ein sehr starker gegenläufiger Zusammenhang. Anlagen, die häufiger gewartet werden, haben weniger Störungen. Die Punkte liegen fast genau auf einer fallenden Geraden."_
 
-**c)** **Nein, nicht allein aus dieser Rechnung.** Ein hohes r sagt nichts darüber, *warum* die beiden Größen zusammenhängen (Kapitel 6). Alle vier Erklärungen kommen infrage:
+**c)** **Nein, nicht allein aus dieser Rechnung.** Ein hohes r sagt nichts darüber, _warum_ die beiden Größen zusammenhängen (Kapitel 6). Alle vier Erklärungen kommen infrage:
 
 - **Störvariable:** Wie bei den schwarzen Laptops das **Kaufjahr** könnte hier das **Alter der Anlagen** dahinterstecken. Neuere Anlagen werden vielleicht häufiger gewartet, etwa wegen eines Wartungsvertrags, und haben ohnehin weniger Störungen.
 - **Umgekehrte Richtung:** Wie bei den Überwachungskameras kann die Wirkung andersherum laufen. Anlagen mit vielen Störungen stehen so oft still oder in Reparatur, dass die planmäßige Wartung ausfällt.
@@ -799,6 +801,7 @@ r = np.corrcoef(stufe, y)[0, 1]
 ```
 
 Ausgabe:
+
 ```
 Maschine A: r = 0.90, Steigung = 0.9 °C pro Stufe
 Maschine B: r = 0.90, Steigung = 9.0 °C pro Stufe
@@ -812,14 +815,14 @@ Maschine B: r = 0.90, Steigung = 9.0 °C pro Stufe
 
 **b)** x̄ = 20 / 5 = **4**, ȳ = 350 / 5 = **70**
 
-| Tag | x | y | x − x̄ | y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 0 | 50 | −4 | −20 | +80 | 16 | 400 |
-| 2 | 2 | 80 | −2 | +10 | −20 | 4 | 100 |
-| 3 | 4 | 90 | 0 | +20 | 0 | 0 | 400 |
-| 4 | 6 | 80 | +2 | +10 | +20 | 4 | 100 |
-| 5 | 8 | 50 | +4 | −20 | −80 | 16 | 400 |
-| **Σ** | **20** | **350** | **0 ✓** | **0 ✓** | **0** | **40** | **1400** |
+| Tag   |      x |       y |   x − x̄ |   y − ȳ | (x − x̄)(y − ȳ) | (x − x̄)² | (y − ȳ)² |
+| ----- | -----: | ------: | ------: | ------: | -------------: | -------: | -------: |
+| 1     |      0 |      50 |      −4 |     −20 |            +80 |       16 |      400 |
+| 2     |      2 |      80 |      −2 |     +10 |            −20 |        4 |      100 |
+| 3     |      4 |      90 |       0 |     +20 |              0 |        0 |      400 |
+| 4     |      6 |      80 |      +2 |     +10 |            +20 |        4 |      100 |
+| 5     |      8 |      50 |      +4 |     −20 |            −80 |       16 |      400 |
+| **Σ** | **20** | **350** | **0 ✓** | **0 ✓** |          **0** |   **40** | **1400** |
 
 $$
 r = \frac{0}{\sqrt{40 \cdot 1400}} = \frac{0}{\sqrt{56\,000}} = \frac{0}{236{,}6} = \mathbf{0}
@@ -859,24 +862,24 @@ print(f"mit Ausreißer:  {np.corrcoef(x_neu, y_neu)[0, 1]:.2f}")                
 
 ## Lösung Aufgabe 6a · Welche Erklärung passt?
 
-| # | Beobachtung | Wahrscheinlichste Erklärung | Begründung | Zweite denkbare Erklärung |
-|---|---|---|---|---|
-| 1 | Mehr Feuerwehrleute ↔ mehr Brände | **Störvariable** | Die **Größe der Stadt**: Große Städte haben mehr Einwohner, mehr Gebäude, mehr Brände **und** mehr Feuerwehr. | **Umgekehrte Richtung:** Wo es oft brennt, stellt man mehr Feuerwehrleute ein. |
-| 2 | Mehr Weiterbildungen ↔ mehr Gehalt | **Störvariable** oder **Kausalität** | Motivation oder Position: Wer ohnehin ehrgeizig ist oder eine Führungsrolle hat, bildet sich mehr weiter **und** verdient mehr. | Echte Kausalität ist plausibel. **Umgekehrt** geht auch: Wer mehr verdient, bekommt eher Weiterbildungen bezahlt. |
-| 3 | Viel Schmerzmittel ↔ mehr Kopfschmerzen | **Umgekehrte Richtung** | Wer häufig Kopfschmerzen hat, nimmt mehr Schmerzmittel. | Auch **echte Kausalität** ist bekannt: Übermäßiger Gebrauch kann selbst Kopfschmerzen auslösen. Beides kann gleichzeitig stimmen. |
-| 4 | Buchstaben im Wochentag ↔ Umsatz | **Zufall** | Bei 500 getesteten Kennzahlen findet sich fast sicher eine mit hohem r. Einen fachlichen Grund gibt es nicht. | Denkbar ist höchstens eine Störvariable: Der Wochentag selbst beeinflusst den Umsatz (z. B. Samstag), und die Buchstabenzahl hängt zufällig damit zusammen. |
-| 5 | Betriebsstunden ↔ Festplattendefekte | **Echte Kausalität** | Mechanische Bauteile verschleißen mit der Laufzeit. Das stützt das Fachwissen. | Störvariable möglich: Ältere Server haben mehr Stunden **und** ältere Festplattenmodelle. |
-| 6 | Mehr Training ↔ mehr Verletzungen | **Echte Kausalität** | Mehr Belastung führt zu mehr Gelegenheiten für Verletzungen. | **Störvariable:** Wer viel trainiert, macht oft riskantere Sportarten oder Wettkämpfe. |
+| #   | Beobachtung                             | Wahrscheinlichste Erklärung          | Begründung                                                                                                                      | Zweite denkbare Erklärung                                                                                                                                   |
+| --- | --------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Mehr Feuerwehrleute ↔ mehr Brände       | **Störvariable**                     | Die **Größe der Stadt**: Große Städte haben mehr Einwohner, mehr Gebäude, mehr Brände **und** mehr Feuerwehr.                   | **Umgekehrte Richtung:** Wo es oft brennt, stellt man mehr Feuerwehrleute ein.                                                                              |
+| 2   | Mehr Weiterbildungen ↔ mehr Gehalt      | **Störvariable** oder **Kausalität** | Motivation oder Position: Wer ohnehin ehrgeizig ist oder eine Führungsrolle hat, bildet sich mehr weiter **und** verdient mehr. | Echte Kausalität ist plausibel. **Umgekehrt** geht auch: Wer mehr verdient, bekommt eher Weiterbildungen bezahlt.                                           |
+| 3   | Viel Schmerzmittel ↔ mehr Kopfschmerzen | **Umgekehrte Richtung**              | Wer häufig Kopfschmerzen hat, nimmt mehr Schmerzmittel.                                                                         | Auch **echte Kausalität** ist bekannt: Übermäßiger Gebrauch kann selbst Kopfschmerzen auslösen. Beides kann gleichzeitig stimmen.                           |
+| 4   | Buchstaben im Wochentag ↔ Umsatz        | **Zufall**                           | Bei 500 getesteten Kennzahlen findet sich fast sicher eine mit hohem r. Einen fachlichen Grund gibt es nicht.                   | Denkbar ist höchstens eine Störvariable: Der Wochentag selbst beeinflusst den Umsatz (z. B. Samstag), und die Buchstabenzahl hängt zufällig damit zusammen. |
+| 5   | Betriebsstunden ↔ Festplattendefekte    | **Echte Kausalität**                 | Mechanische Bauteile verschleißen mit der Laufzeit. Das stützt das Fachwissen.                                                  | Störvariable möglich: Ältere Server haben mehr Stunden **und** ältere Festplattenmodelle.                                                                   |
+| 6   | Mehr Training ↔ mehr Verletzungen       | **Echte Kausalität**                 | Mehr Belastung führt zu mehr Gelegenheiten für Verletzungen.                                                                    | **Störvariable:** Wer viel trainiert, macht oft riskantere Sportarten oder Wettkämpfe.                                                                      |
 
 ## Lösung Aufgabe 6b · Fälle aus dem Betrieb
 
-| # | Beobachtung | Wahrscheinlichste Erklärung | Begründung | Bezug im Skript |
-|---|---|---|---|---|
-| 1 | Sommer-Inbetriebnahme ↔ häufigere Ausfälle | **Störvariable** | Die Jahreszeit selbst macht ein Gerät kaum anfälliger. Wahrscheinlicher ist, dass die Sommergeräte aus einer bestimmten **Lieferung oder Bauserie** stammen. Nachfragen statt raten. | Wie die **schwarzen Laptops**: Nicht die Farbe, sondern das Kaufjahr steckt dahinter. Prüfen mit Weg ③: nur Geräte derselben Serie vergleichen. |
-| 2 | Höherer Stromverbrauch ↔ mehr Betriebsstunden | **Umgekehrte Richtung** | Nicht der Stromverbrauch erzeugt Betriebsstunden, sondern wer länger läuft, verbraucht mehr Strom. Der Zusammenhang ist trivial und bringt keine neue Erkenntnis. | Wie die **Überwachungskameras**: Die vermutete Wirkung ist in Wahrheit die Ursache. |
-| 3 | Häufiger Support-Anrufe ↔ seltener Kündigung | **Störvariable** oder **umgekehrte Richtung** | Engagierte Kunden rufen öfter an **und** bleiben eher. Die Kundenbindung verursacht beides. | Wie die **Premium-Kreditkarte** (Kapitel 7): Für die **Vorhersage** von Kündigungen trotzdem nützlich. Kunden zum Anrufen zu drängen (**Entscheidung**) senkt die Kündigungen aber nicht. |
-| 4 | Viele Krankmeldungen ↔ mehr ungeplante Stillstände | **Störvariable** | In Zeiten hoher Belastung steigen beide. Auch **echte Kausalität** ist möglich: Weniger Personal bedeutet weniger vorbeugende Wartung. Sogar die **umgekehrte Richtung** ist denkbar: Viele Stillstände bedeuten Stress und Überstunden. | Hier hilft Weg ② (**zeitliche Reihenfolge**): Kommen die Krankmeldungen vor den Stillständen oder danach? |
-| 5 | Regalnummer ↔ Ausfallrate (1 von 200 Merkmalen) | **Zufall** | Wer 200 Merkmale durchsucht, findet rein zufällig immer irgendeinen Zusammenhang. Außerdem ist eine Regalnummer nur ein Name und kein Messwert. | Genau das Experiment aus **Python-Aufgabe 6** und Aufgabe 6a Nr. 4 (Buchstaben im Wochentag). Die Regalnummer ist wie die **Hausnummer** in Aufgabe 2: damit zu rechnen, ergibt keinen Sinn. |
+| #   | Beobachtung                                        | Wahrscheinlichste Erklärung                   | Begründung                                                                                                                                                                                                                               | Bezug im Skript                                                                                                                                                                              |
+| --- | -------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Sommer-Inbetriebnahme ↔ häufigere Ausfälle         | **Störvariable**                              | Die Jahreszeit selbst macht ein Gerät kaum anfälliger. Wahrscheinlicher ist, dass die Sommergeräte aus einer bestimmten **Lieferung oder Bauserie** stammen. Nachfragen statt raten.                                                     | Wie die **schwarzen Laptops**: Nicht die Farbe, sondern das Kaufjahr steckt dahinter. Prüfen mit Weg ③: nur Geräte derselben Serie vergleichen.                                              |
+| 2   | Höherer Stromverbrauch ↔ mehr Betriebsstunden      | **Umgekehrte Richtung**                       | Nicht der Stromverbrauch erzeugt Betriebsstunden, sondern wer länger läuft, verbraucht mehr Strom. Der Zusammenhang ist trivial und bringt keine neue Erkenntnis.                                                                        | Wie die **Überwachungskameras**: Die vermutete Wirkung ist in Wahrheit die Ursache.                                                                                                          |
+| 3   | Häufiger Support-Anrufe ↔ seltener Kündigung       | **Störvariable** oder **umgekehrte Richtung** | Engagierte Kunden rufen öfter an **und** bleiben eher. Die Kundenbindung verursacht beides.                                                                                                                                              | Wie die **Premium-Kreditkarte** (Kapitel 7): Für die **Vorhersage** von Kündigungen trotzdem nützlich. Kunden zum Anrufen zu drängen (**Entscheidung**) senkt die Kündigungen aber nicht.    |
+| 4   | Viele Krankmeldungen ↔ mehr ungeplante Stillstände | **Störvariable**                              | In Zeiten hoher Belastung steigen beide. Auch **echte Kausalität** ist möglich: Weniger Personal bedeutet weniger vorbeugende Wartung. Sogar die **umgekehrte Richtung** ist denkbar: Viele Stillstände bedeuten Stress und Überstunden. | Hier hilft Weg ② (**zeitliche Reihenfolge**): Kommen die Krankmeldungen vor den Stillständen oder danach?                                                                                    |
+| 5   | Regalnummer ↔ Ausfallrate (1 von 200 Merkmalen)    | **Zufall**                                    | Wer 200 Merkmale durchsucht, findet rein zufällig immer irgendeinen Zusammenhang. Außerdem ist eine Regalnummer nur ein Name und kein Messwert.                                                                                          | Genau das Experiment aus **Python-Aufgabe 6** und Aufgabe 6a Nr. 4 (Buchstaben im Wochentag). Die Regalnummer ist wie die **Hausnummer** in Aufgabe 2: damit zu rechnen, ergibt keinen Sinn. |
 
 **Zusatz (Aufgabe 3c c):** Bei Wartung und Störungen kommen **alle vier** Erklärungen infrage. Siehe die [Lösung zu Aufgabe 3c](#lösung-aufgabe-3c--wartung-und-störungen).
 
@@ -901,7 +904,7 @@ print(f"Mit neuen Daten: r = {np.corrcoef(merkmal_neu, ziel_neu)[0, 1]:+.2f}")  
 
 1. **Vorhersage** → Korrelation reicht, die Farbe ist ein verlässliches Kennzeichen für das Alter. Risiko: **Drift**, sobald neue Modelle wieder silbern sind. Besser gleich das Kaufjahr als Merkmal verwenden.
 2. **Entscheidung** → Kausalität nötig. Die Farbe verursacht keine Defekte, schwarze Laptops zu kaufen bringt nichts. Risiko: Geld ohne Wirkung.
-3. **Vorhersage** → Für die Tarifberechnung reicht der Zusammenhang, solange er stabil bleibt. Risiko: Drift, wenn sich das Kundenverhalten ändert. *(Zusatz: Bei Entscheidungen über Menschen sind zusätzlich rechtliche Grenzen wie Diskriminierungsverbote zu beachten.)*
+3. **Vorhersage** → Für die Tarifberechnung reicht der Zusammenhang, solange er stabil bleibt. Risiko: Drift, wenn sich das Kundenverhalten ändert. _(Zusatz: Bei Entscheidungen über Menschen sind zusätzlich rechtliche Grenzen wie Diskriminierungsverbote zu beachten.)_
 4. **Entscheidung** → Kausalität nötig. Vermutlich ist die Online-Abschlussart nur ein Hinweis auf eine Störvariable (z. B. jüngere, technikaffine Kunden mit anderem Risikoprofil). Ein Rabatt würde die Schäden dann nicht senken.
 
 ## Lösung Aufgabe 8 · Prüfplan (Beispiel: Weiterbildungen und Gehalt)
